@@ -2,6 +2,14 @@
 
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
+    public function __construct($application)
+    {
+        $autoloader = Zend_Loader_Autoloader::getInstance();
+        $autoloader->setFallbackAutoloader(true);
+
+        parent::__construct($application);
+    }
+
     protected function _initRequest(array $options = array())
     {
         // Ensure front controller instance is present, and fetch it

@@ -6,7 +6,7 @@ class SimpleCal_Form_CreateEvent extends Zend_Form
     public function init()
     {
         Zend_Dojo::enableForm($this);
-        
+
         $this->setOptions(array(
             'method' => 'post',
         ));
@@ -58,14 +58,28 @@ class SimpleCal_Form_CreateEvent extends Zend_Form
             'cols'    => 80,
             'rows'    => 5
         ));
-        
+
+        $invite = new Zend_Dojo_Form_Element_Textarea(array(
+            'name'       => 'invite',
+            'label'      => 'Invite (email, use "," for multiple)',
+        	'style'    => 'width: 400px;',
+            'validators' => array(
+                'length' => array(
+                    'validator' => 'StringLength',
+                    'options' => array('min' => 4, 'max' => 10000)
+                )
+            )
+        ));
+
+
         $submit = new Zend_Form_Element_Submit(array(
             'name'  => 'create',
             'label' => 'Create Event'
         ));
-        
-        $this->addElements(array($title, $date, $time, $desc, $submit));
-        
+
+        $this->addElements(
+            array($title, $date, $time, $desc, $invite, $submit));
+
         /**
          * Set decorators
          */
